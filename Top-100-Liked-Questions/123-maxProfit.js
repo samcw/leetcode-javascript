@@ -29,30 +29,25 @@ var maxProfit1 = function(prices) {
 var maxProfit2 = function(prices) {
     if (prices.length === 0) return 0;
     const len = prices.length;
-    const dp = [];
-    //生成dp数组
-    for (let i = 0; i < len; i++) {
-        dp.push([]);
-    }
-    for (let item of dp) {
-        let arr = [[0, 0], [0, 0], [0, 0]];
-        item.push(arr);
-    }
     //初始化第一天
-    dp[0][0][0] = 0;
-    dp[0][0][1] = -prices[0];
-    dp[0][1][0] = 0;
-    dp[0][1][1] = -prices[0];
-    dp[0][2][0] = 0;
-    dp[0][2][1] = -prices[0];
+    dp1 = 0;
+    dp2 = -prices[0];
+    dp3 = 0;
+    dp4 = -prices[0];
+    dp5 = 0;
     //开始
     for (let i = 1; i < len; i++) {
         //初始状态只能从过往的初始状态转换过来
-        dp[i][0][0] = dp[i - 1][0][0]
+        dp1 = dp1;
         //第一次交易状态
-        dp[i][0][1] = Math.max(dp[i][0][0] - prices[i], dp[i - 1][0][1]);
-        dp[i][1][0] = Math.max(dp[i][0][1] + prices[i], dp[i - 1][1][0]);
+        dp2 = Math.max(dp1 - prices[i], dp2);
+        dp3 = Math.max(dp2 + prices[i], dp3);
         //第二次交易状态
-        
+        dp4 = Math.max(dp3 - prices[i], dp4);
+        dp5 = Math.max(dp4 + prices[i], dp5);
     }
+    return Math.max(dp1, dp2, dp3, dp4, dp5);
 }
+
+const input = [3,3,5,0,0,3,1,4];
+maxProfit2(input);
